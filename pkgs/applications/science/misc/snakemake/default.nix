@@ -6,14 +6,14 @@
 
 python3.pkgs.buildPythonApplication rec {
   pname = "snakemake";
-  version = "8.0.1";
+  version = "8.1.1";
   format = "setuptools";
 
   src = fetchFromGitHub {
     owner = "snakemake";
     repo = pname;
     rev = "refs/tags/v${version}";
-    hash = "sha256-F4c/lgp7J6LLye+f3FpzaXz3zM7R+jXxTziPlVbxFxA=";
+    hash = "sha256-iP7CIpBCbXBzycYJ4nh5qXfKUt37U5HoeaEoZXSHWc8=";
   };
 
   postPatch = ''
