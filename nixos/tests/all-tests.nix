@@ -437,13 +437,20 @@ in {
   fluentd = handleTest ./fluentd.nix {};
   fluidd = handleTest ./fluidd.nix {};
   fontconfig-default-fonts = handleTest ./fontconfig-default-fonts.nix {};
-  forgejo = handleTest ./forgejo.nix { forgejoPackage = pkgs.forgejo; };
-  forgejo-lts = handleTest ./forgejo.nix { forgejoPackage = pkgs.forgejo-lts; };
+  forgejo = import ./forgejo.nix {
+    inherit runTest;
+    forgejoPackage = pkgs.forgejo;
+  };
+  forgejo-lts = import ./forgejo.nix {
+    inherit runTest;
+    forgejoPackage = pkgs.forgejo-lts;
+  };
   freenet = handleTest ./freenet.nix {};
   freeswitch = handleTest ./freeswitch.nix {};
   freetube = discoverTests (import ./freetube.nix);
   freshrss = handleTest ./freshrss {};
   frigate = runTest ./frigate.nix;
+  froide-govplan = runTest ./web-apps/froide-govplan.nix;
   frp = handleTest ./frp.nix {};
   frr = handleTest ./frr.nix {};
   fsck = handleTest ./fsck.nix {};
@@ -502,7 +509,7 @@ in {
   guacamole-server = handleTest ./guacamole-server.nix {};
   guix = handleTest ./guix {};
   gvisor = handleTest ./gvisor.nix {};
-  h2o = discoverTests (import ./web-servers/h2o { inherit handleTestOn; });
+  h2o = import ./web-servers/h2o { inherit recurseIntoAttrs runTest; };
   hadoop = import ./hadoop { inherit handleTestOn; package=pkgs.hadoop; };
   hadoop_3_3 = import ./hadoop { inherit handleTestOn; package=pkgs.hadoop_3_3; };
   hadoop2 = import ./hadoop { inherit handleTestOn; package=pkgs.hadoop2; };
@@ -912,7 +919,7 @@ in {
   peering-manager = handleTest ./web-apps/peering-manager.nix {};
   peertube = handleTestOn ["x86_64-linux"] ./web-apps/peertube.nix {};
   peroxide = handleTest ./peroxide.nix {};
-  pgadmin4 = handleTest ./pgadmin4.nix {};
+  pgadmin4 = runTest ./pgadmin4.nix;
   pgbouncer = handleTest ./pgbouncer.nix {};
   pghero = runTest ./pghero.nix;
   pgweb = runTest ./pgweb.nix;
@@ -999,7 +1006,7 @@ in {
   qgis = handleTest ./qgis.nix { package = pkgs.qgis; };
   qgis-ltr = handleTest ./qgis.nix { package = pkgs.qgis-ltr; };
   qownnotes = handleTest ./qownnotes.nix {};
-  qtile = handleTestOn ["x86_64-linux" "aarch64-linux"] ./qtile/default.nix {};
+  qtile = runTestOn ["x86_64-linux" "aarch64-linux"] ./qtile/default.nix;
   quake3 = handleTest ./quake3.nix {};
   quicktun = handleTest ./quicktun.nix {};
   quickwit = handleTest ./quickwit.nix {};
@@ -1008,7 +1015,7 @@ in {
   radarr = handleTest ./radarr.nix {};
   radicale = handleTest ./radicale.nix {};
   radicle = runTest ./radicle.nix;
-  ragnarwm = handleTest ./ragnarwm.nix {};
+  ragnarwm = runTestOn ["x86_64-linux" "aarch64-linux"] ./ragnarwm.nix;
   rasdaemon = handleTest ./rasdaemon.nix {};
   rathole = runTest ./rathole.nix;
   readarr = handleTest ./readarr.nix {};
